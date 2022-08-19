@@ -73,13 +73,13 @@ jobs:
       - name: /videos/{video_id} delete lambda deploy zip
         uses: postman-open-technologies/videos@main
         with:
-            args: zip -qq -r  m-s-videos-video-pu-d.zip /videos/video_id/delete/index.js node_modules
+            args: zip -qq -r  m-s-videos-video-d.zip /videos/video_id/delete/index.js node_modules
       - name: videos get lambda deploy
         uses: appleboy/lambda-action@master
         with:
             aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
             aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
             aws_region: us-west-1
-            function_name:  m-s-videos-video-pu-d
-            zip_file:  m-s-videos-video-pu-d.zip      
+            function_name:  m-s-videos-video-d
+            zip_file:  m-s-videos-video-d.zip      
  
