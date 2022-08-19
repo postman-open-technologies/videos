@@ -25,7 +25,7 @@ jobs:
       - name: /videos get lambda deploy zip
         uses: postman-open-technologies/videos@main
         with:
-            args: zip -qq -r m-s-video-g.zip /videos/get/index.js node_modules
+            args: zip -qq -r m-s-video-g.zip videos/get/index.js node_modules
       - name: videos get lambda deploy
         uses: appleboy/lambda-action@master
         with:
@@ -37,7 +37,7 @@ jobs:
       - name: /videos post lambda deploy zip
         uses: postman-open-technologies/videos@main
         with:
-            args: zip -qq -r m-s-video-po.zip /videos/post/index.js node_modules
+            args: zip -qq -r m-s-video-po.zip videos/post/index.js node_modules
       - name: videos get lambda deploy
         uses: appleboy/lambda-action@master
         with:
@@ -49,7 +49,7 @@ jobs:
       - name: /videos/{video_id} get lambda deploy zip
         uses: postman-open-technologies/videos@main
         with:
-            args: zip -qq -r m-s-videos-video-g.zip /videos/video_id/get/index.js node_modules
+            args: zip -qq -r m-s-videos-video-g.zip videos/video_id/get/index.js node_modules
       - name: videos get lambda deploy
         uses: appleboy/lambda-action@master
         with:
@@ -61,7 +61,7 @@ jobs:
       - name: /videos/{video_id} put lambda deploy zip
         uses: postman-open-technologies/videos@main
         with:
-            args: zip -qq -r m-s-videos-video-pu.zip /videos/video_id/put/index.js node_modules
+            args: zip -qq -r m-s-videos-video-pu.zip videos/video_id/put/index.js node_modules
       - name: videos get lambda deploy
         uses: appleboy/lambda-action@master
         with:
@@ -73,7 +73,7 @@ jobs:
       - name: /videos/{video_id} delete lambda deploy zip
         uses: postman-open-technologies/videos@main
         with:
-            args: zip -qq -r  m-s-videos-video-d.zip /videos/video_id/delete/index.js node_modules
+            args: zip -qq -r  m-s-videos-video-d.zip videos/video_id/delete/index.js node_modules
       - name: videos get lambda deploy
         uses: appleboy/lambda-action@master
         with:
