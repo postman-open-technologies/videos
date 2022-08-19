@@ -37,15 +37,15 @@ jobs:
       - name: /videos post lambda deploy zip
         uses: postman-open-technologies/videos@main
         with:
-            args: zip -qq -r m-s-video-g-po.zip /videos/post/index.js node_modules
+            args: zip -qq -r m-s-video-po.zip /videos/post/index.js node_modules
       - name: videos get lambda deploy
         uses: appleboy/lambda-action@master
         with:
             aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
             aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
             aws_region: us-west-1
-            function_name: m-s-video-g-po
-            zip_file: m-s-video-g-po.zip
+            function_name: m-s-video-po
+            zip_file: m-s-video-po.zip
       - name: /videos/{video_id} get lambda deploy zip
         uses: postman-open-technologies/videos@main
         with:
@@ -61,25 +61,25 @@ jobs:
       - name: /videos/{video_id} put lambda deploy zip
         uses: postman-open-technologies/videos@main
         with:
-            args: zip -qq -r m-s-videos-video-g-pu.zip /videos/video_id/put/index.js node_modules
+            args: zip -qq -r m-s-videos-video-pu.zip /videos/video_id/put/index.js node_modules
       - name: videos get lambda deploy
         uses: appleboy/lambda-action@master
         with:
             aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
             aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
             aws_region: us-west-1
-            function_name: m-s-videos-video-g-pu
-            zip_file: m-s-videos-video-g-pu.zip
+            function_name: m-s-videos-video-pu
+            zip_file: m-s-videos-video-pu.zip
       - name: /videos/{video_id} delete lambda deploy zip
         uses: postman-open-technologies/videos@main
         with:
-            args: zip -qq -r  m-s-videos-video-g-pu-d.zip /videos/video_id/delete/index.js node_modules
+            args: zip -qq -r  m-s-videos-video-pu-d.zip /videos/video_id/delete/index.js node_modules
       - name: videos get lambda deploy
         uses: appleboy/lambda-action@master
         with:
             aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
             aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
             aws_region: us-west-1
-            function_name:  m-s-videos-video-g-pu-d
-            zip_file:  m-s-videos-video-g-pu-d.zip      
+            function_name:  m-s-videos-video-pu-d
+            zip_file:  m-s-videos-video-pu-d.zip      
  
