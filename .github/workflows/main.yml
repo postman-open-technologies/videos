@@ -1,36 +1,85 @@
-# This is a basic workflow to help you get started with Actions
-
-name: CI
-
-# Controls when the workflow will run
-on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+name: Blueprints  
+on: [push]
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  deploy_source:
+    name: Deploy API Using Lambda
+    strategy:
+      matrix:
+        node-version: [12.x]
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
-
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+    
+      - uses: actions/checkout@v1
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: npm install and build
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          npm ci
+          npm run build --if-present
+        env:
+          CI: true
+          
+      # Videos
+      - name: /videos get lambda deploy zip
+        uses: kinlane/blueprints@main
+        with:
+            args: zip -qq -r m-s-video-g.zip /videos/get/index.js node_modules
+      - name: blueprints get lambda deploy
+        uses: appleboy/lambda-action@master
+        with:
+            aws_access_key_id: $ secrets.AWS_ACCESS_KEY_ID
+            aws_secret_access_key: $ secrets.AWS_SECRET_ACCESS_KEY
+            aws_region: us-east-1
+            function_name: m-s-video-g
+            zip_file: m-s-video-g.zip
+      - name: /videos post lambda deploy zip
+        uses: kinlane/blueprints@main
+        with:
+            args: zip -qq -r m-s-video-g-po.zip /videos/post/index.js node_modules
+      - name: blueprints get lambda deploy
+        uses: appleboy/lambda-action@master
+        with:
+            aws_access_key_id: $ secrets.AWS_ACCESS_KEY_ID
+            aws_secret_access_key: $ secrets.AWS_SECRET_ACCESS_KEY
+            aws_region: us-east-1
+            function_name: m-s-video-g-po
+            zip_file: m-s-video-g-po.zip
+      - name: /videos/{video_id} get lambda deploy zip
+        uses: kinlane/blueprints@main
+        with:
+            args: zip -qq -r m-s-videos-video-g.zip /videos/video_id/get/index.js node_modules
+      - name: blueprints get lambda deploy
+        uses: appleboy/lambda-action@master
+        with:
+            aws_access_key_id: $ secrets.AWS_ACCESS_KEY_ID
+            aws_secret_access_key: $ secrets.AWS_SECRET_ACCESS_KEY
+            aws_region: us-east-1
+            function_name: m-s-videos-video-g
+            zip_file: m-s-videos-video-g.zip
+      - name: /videos/{video_id} put lambda deploy zip
+        uses: kinlane/blueprints@main
+        with:
+            args: zip -qq -r m-s-videos-video-g-pu.zip /videos/video_id/put/index.js node_modules
+      - name: blueprints get lambda deploy
+        uses: appleboy/lambda-action@master
+        with:
+            aws_access_key_id: $ secrets.AWS_ACCESS_KEY_ID
+            aws_secret_access_key: $ secrets.AWS_SECRET_ACCESS_KEY
+            aws_region: us-east-1
+            function_name: m-s-videos-video-g-pu
+            zip_file: m-s-videos-video-g-pu.zip
+      - name: /videos/{video_id} delete lambda deploy zip
+        uses: kinlane/blueprints@main
+        with:
+            args: zip -qq -r  m-s-videos-video-g-pu-d.zip /videos/video_id/delete/index.js node_modules
+      - name: blueprints get lambda deploy
+        uses: appleboy/lambda-action@master
+        with:
+            aws_access_key_id: $ secrets.AWS_ACCESS_KEY_ID
+            aws_secret_access_key: $ secrets.AWS_SECRET_ACCESS_KEY
+            aws_region: us-east-1
+            function_name:  m-s-videos-video-g-pu-d
+            zip_file:  m-s-videos-video-g-pu-d.zip      
+ 
