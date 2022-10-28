@@ -82,4 +82,40 @@ jobs:
             aws_region: us-west-1
             function_name:  m-s-videos-video-d
             zip_file:  m-s-videos-video-d.zip      
+      - name: /videos/{video_id}/tags get lambda deploy zip
+        uses: postman-open-technologies/videos@main
+        with:
+            args: zip -qq -r m-s-videos-video-tags-g.zip videos/video_id/tags/get/index.js node_modules
+      - name: videos get lambda deploy
+        uses: appleboy/lambda-action@master
+        with:
+            aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
+            aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+            aws_region: us-west-1
+            function_name: m-s-videos-video-tags-g
+            zip_file: m-s-videos-video-tags-g.zip
+      - name: /videos/{video_id}/tags post lambda deploy zip
+        uses: postman-open-technologies/videos@main
+        with:
+            args: zip -qq -r m-s-videos-video-tags-po.zip videos/video_id/tags/post/index.js node_modules
+      - name: videos get lambda deploy
+        uses: appleboy/lambda-action@master
+        with:
+            aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
+            aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+            aws_region: us-west-1
+            function_name: m-s-videos-video-tags-po
+            zip_file: m-s-videos-video-tags-po.zip
+      - name: /videos/{video_id}/tags/{tag_id} delete lambda deploy zip
+        uses: postman-open-technologies/videos@main
+        with:
+            args: zip -qq -r m-s-videos-video-tags-tag-d.zip videos/video_id/tags/tag_id/delete/index.js node_modules
+      - name: videos get lambda deploy
+        uses: appleboy/lambda-action@master
+        with:
+            aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
+            aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+            aws_region: us-west-1
+            function_name: m-s-videos-video-tags-tag-d
+            zip_file: m-s-videos-video-tags-tag-d.zip            
  
