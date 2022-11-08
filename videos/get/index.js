@@ -35,8 +35,8 @@ exports.handler = vandium.generic()
     if(event.limit){
       limit = event.limit;
     }   
-    if(limit > 25){
-      limit = 25;
+    if(limit > 1000){
+      limit = 1000;
     }
 
     var sql = "SELECT * FROM videos b WHERE id IS NOT NULL";
@@ -49,7 +49,7 @@ exports.handler = vandium.generic()
     if(tags != ''){
        sql += " AND id IN(SELECT video_id FROM videos_tags WHERE tag_id IN(SELECT id FROM tags WHERE name IN ('" + tags.replace(",","','") + "')))";
     }     
-    sql += " ORDER BY Level";
+    sql += " ORDER BY Name";
     sql += " LIMIT " + page + "," + limit;
     connection.query(sql, function (error, results, fields) {
 
